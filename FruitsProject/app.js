@@ -27,14 +27,37 @@ const fruit = new Fruit ({
 
 const personSchema = new mongoose.Schema ({
   name: String,
-  age: Number
+  age: Number,
+  favouriteFruit: fruitSchema
 });
 
 const Person = mongoose.model("Person", personSchema);
 
-const person = new Person({
-  name: "John",
-  age: 37
+const Mango = new Fruit({
+  name: "Mango",
+  rating: 9,
+  review: "Great fruit"
+});
+
+mango.save();
+
+// const person = new Person({
+//   name: "Amy",
+//   age: 12,
+//   favouriteFruit: pineapple
+// });
+
+// const person = new Person({
+//   name: "John",
+//   age: 37
+// });
+
+Person.updateOne({name: "John"}, {favouriteFruit: mango}, function(err){
+  if(err){
+    console.log(err);
+  } else {
+    console.log("Succesfully update");
+  }
 });
 
 person.save();
@@ -71,3 +94,27 @@ Fruit.find(function(err, fruits){
 
   }
 });
+
+// Fruit.updateOne({_id: "mongodbID"}, {name: "Peach"}, function(err) {
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log("Update success");
+//   }
+// });
+
+// Fruit.deleteOne({name: "Peach"}, function(err){
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log("Deleted");
+//   }
+// });
+
+// Person.deleteMany({name: "John"}, function(err){
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Succesfully deleted all");
+//   }
+// });
